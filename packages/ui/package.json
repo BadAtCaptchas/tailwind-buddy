@@ -14,7 +14,8 @@
     "build": "tsc && vite build",
     "build:withcss": "pnpm generate:safelist && tsc && vite build && pnpm generate:css",
     "generate:safelist": "vite-node scripts/generate-safelist.ts",
-    "generate:css": "tailwindcss -i ./index.css -o ./dist/style.css"
+    "generate:css": "tailwindcss -i ./index.css -o ./dist/style.css",
+    "test": "vitest run"
   },
   "exports": {
     ".": {
@@ -43,6 +44,7 @@
     "typescript": "^5.2.2",
     "vite": "^5.2.0",
     "vite-node": "^1.6.1",
-    "vite-plugin-dts": "^3.8.1"
+    "vite-plugin-dts": "^3.8.1",
+    "vitest": "^1.6.1"
   }
 }

@@ -21,6 +21,7 @@ export const Label: React.FC<LabelProps> = ({
         className,
         disabled,
       })}
+      disabled={disabled}
       {...restProps}
     >
       {children}
