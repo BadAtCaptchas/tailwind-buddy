@@ -131,6 +131,7 @@ const createSlotsCore = <
     ),
   }));
 
+  const sortedVariantKeys = Array.from(flattenedVariants.keys()).sort();
   const variantCache = new Map<string, string>();
 
   const slotsResult = Object.fromEntries(
@@ -147,8 +148,39 @@ const createSlotsCore = <
             }
           }
 
-          const cacheKey = JSON.stringify({ slot: slotKey, props: cleanedProps });
-          if (variantCache.has(cacheKey)) {
+          // Only cache the finite set of declared, scalar variant states.
+          // Unknown props do not affect variant output, while custom classes and
+          // responsive objects contain caller-controlled, potentially unbounded
+          // values and therefore deliberately bypass the persistent cache.
+          const hasCustomClass =
+            typeof cleanedProps["className"] === "string" ||
+            typeof cleanedProps["class"] === "string";
+          const hasResponsiveVariant = sortedVariantKeys.some((key) =>
+            isRecord(cleanedProps[key])
+          );
+          const cacheKey =
+            hasCustomClass || hasResponsiveVariant
+              ? undefined
+              : JSON.stringify([
+                  slotKey,
+                  ...sortedVariantKeys.map((key) => {
+                    const value = cleanedProps[key] ?? defaultVariants?.[key];
+                    return flattenedVariants.get(key)?.has(value as string)
+                      ? value
+                      : null;
+                  }),
+                  ...flattenedCompoundVariants.map(({ conditions }) =>
+                    Object.entries(conditions).every(
+                      ([key, conditionValue]) => {
+                        const value = cleanedProps[key] ?? defaultVariants?.[key];
+                        return Array.isArray(conditionValue)
+                          ? conditionValue.includes(value)
+                          : conditionValue === value;
+                      }
+                    )
+                  ),
+                ]);
+          if (cacheKey !== undefined && variantCache.has(cacheKey)) {
             return variantCache.get(cacheKey) ?? "";
           }
 
@@ -264,7 +296,9 @@ const createSlotsCore = <
           }
 
           const result = mergeClasses(uniquifyClasses(Array.from(classSet)));
-          variantCache.set(cacheKey, result);
+          if (cacheKey !== undefined) {
+            variantCache.set(cacheKey, result);
+          }
           return result;
         };
         return [slotKey, slotFunction];

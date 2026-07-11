@@ -121,6 +121,50 @@ describe("v2 compat: setupCompose", () => {
     expect(second).toBe(first);
   });
 
+  it("ignores high-cardinality extras and safely handles unserializable props", () => {
+    const spy = vi.fn((s: string) => consumerMerge(s));
+    const compose2 = setupCompose(["md"] as const, spy);
+    const variants = compose2({
+      slots: { root: "p-1" },
+      variants: { size: { sm: { root: "p-2" }, lg: { root: "p-4" } } },
+      defaultVariants: { size: "sm" },
+    })();
+    const circular: Record<string, unknown> = {};
+    circular.self = circular;
+
+    const first = variants.root({
+      size: "lg",
+      ignored: "one",
+    } as Record<string, unknown>);
+    const second = variants.root({
+      size: "lg",
+      ignored: "two",
+      circular,
+      bigint: 1n,
+    } as Record<string, unknown>);
+
+    expect(second).toBe(first);
+    expect(spy).toHaveBeenCalledTimes(1);
+  });
+
+  it("does not persist custom classes in the variant cache", () => {
+    const spy = vi.fn((s: string) => consumerMerge(s));
+    const compose2 = setupCompose(["md"] as const, spy);
+    const variants = compose2({
+      slots: { root: "p-1" },
+      variants: { size: { sm: { root: "p-2" }, lg: { root: "p-4" } } },
+      defaultVariants: { size: "sm" },
+    })();
+
+    expect(variants.root({ size: "lg", className: "custom-one" })).toContain(
+      "custom-one"
+    );
+    expect(variants.root({ size: "lg", className: "custom-two" })).toContain(
+      "custom-two"
+    );
+    expect(spy).toHaveBeenCalledTimes(2);
+  });
+
   it("treats undefined props as absent (no 'undefined' class leak)", () => {
     const root = buttonVariants.root({
       appearance: undefined,
