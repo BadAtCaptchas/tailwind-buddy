@@ -24,12 +24,16 @@ export type Variants<S extends Slots> = {
   };
 };
 
+/** Converts JavaScript's stringified boolean object keys back to booleans. */
+export type StringToBoolean<T> = T extends "true" | "false" ? boolean : T;
+
 /**
  * Optional defaults for each variant. Made optional (issue #31) so consumers
- * are not forced to specify a value for every variant.
+ * are not forced to specify a value for every variant. Boolean-like object
+ * keys are exposed as booleans because JavaScript stringifies those keys.
  */
 export type DefaultVariants<V extends Variants<S>, S extends Slots> = {
-  [K in keyof V]?: keyof V[K];
+  [K in keyof V]?: StringToBoolean<keyof V[K]>;
 };
 
 /**
