@@ -2,7 +2,9 @@ import { describe, expect, test } from "vitest";
 import { simpleCompoundComponent } from "../setup/simple-compound";
 
 describe("test simple compounds wit no responsive", () => {
-  const { slots: { root, children } } = simpleCompoundComponent;
+  const {
+    slots: { root, children },
+  } = simpleCompoundComponent;
 
   describe("with compound variants and default", () => {
     test("root", () => {
@@ -27,8 +29,7 @@ describe("test simple compounds wit no responsive", () => {
     });
 
     test("children with secondary color", () => {
-      const full_str =
-        "text-blue-100 text-green-100 text-purple-200";
+      const full_str = "text-blue-100 text-green-100 text-purple-200";
       expect(
         children({
           color: "secondary",

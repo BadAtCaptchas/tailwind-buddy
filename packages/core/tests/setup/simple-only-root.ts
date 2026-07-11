@@ -1,12 +1,12 @@
 import { compose } from "../../src/tailwind-buddy";
 
 export const simpleComponent = compose<{
-  slots: ["root"],
+  slots: ["root"];
   variants: {
-    color: ["primary", "secondary"],
-  },
-  props: {},
-  screens: []
+    color: ["primary", "secondary"];
+  };
+  props: {};
+  screens: [];
 }>({
   slots: {
     root: "text-red-100",
@@ -17,7 +17,7 @@ export const simpleComponent = compose<{
         root: "text-red-200",
       },
       secondary: {
-        root: "text-green-500"
+        root: "text-green-500",
       },
     },
   },

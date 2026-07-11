@@ -2,10 +2,10 @@ import { compose } from "@busbud/tailwind-buddy";
 import React from "react";
 
 export const fooVariants = compose<{
-    slots: ["root"],
-    variants: {}
-    props: {},
-    screens: []
+  slots: ["root"];
+  variants: {};
+  props: {};
+  screens: [];
 }>({
   slots: {
     root: `
@@ -36,6 +36,8 @@ export const fooVariants = compose<{
 });
 
 export const Dumb: React.FC<any> = () => {
-  const { slots: { root } } = fooVariants;
+  const {
+    slots: { root },
+  } = fooVariants;
   return <div className={root()}>Hello</div>;
 };

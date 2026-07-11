@@ -58,10 +58,7 @@ expectTypeOf<ButtonProps>().toMatchTypeOf<{ isDisabled?: boolean }>();
 
 // 6. `size` is responsive (listed in responsiveVariants) — accepts an object.
 expectTypeOf<ButtonProps["size"]>().toMatchTypeOf<
-  | string
-  | number
-  | { initial: string | number }
-  | undefined
+  string | number | { initial: string | number } | undefined
 >();
 
 // 7. Slot calls accept the inferred bag.

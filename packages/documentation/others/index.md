@@ -4,6 +4,11 @@ editLink: true
 
 # Migrate from 2.4.2 to 3.0.0
 
+> [!NOTE]
+> Tailwind Buddy 3.2 and later restored the v2-compatible `setupCompose` API.
+> Existing v2 consumers can upgrade without immediately rewriting to
+> `compose`; both APIs are supported.
+
 ## Component configuration
 
 ### Previously
@@ -15,7 +20,6 @@ import { twMerge } from "tailwind-merge";
 export type Screens = "sm" | "md";
 export const screens: Screens[] = ["sm", "md"];
 export const compose = setupCompose<Screens>(screens, twMerge);
-
 ```
 
 ```ts [component.ts]
@@ -49,16 +53,14 @@ export type FooProps = VariantsProps<typeof fooVariants> &
 > [!NOTE]
 > No more array of strings to write the classes
 
-
 ```ts [tailwind-buddy-interface.ts]
 export type Screens = "sm" | "md";
 export const screens: Screens[] = ["sm", "md"];
-
 ```
 
 ```ts [component.ts]
 import React from "react";
-import { VariantsProps, compose } from "@busbud/tailwind-buddy";
+import { VariantProps, compose } from "@busbud/tailwind-buddy";
 
 type ComposeType = {
     slots: ["root"],
@@ -93,33 +95,32 @@ We were using class
 
 ```ts
 compoundVariants: [
-    {
-      "class": {
-        "root": "bg-red-500",
-      },
-      "conditions": {
-        "isDisabled": false,
-        "size": "sm",
-      }
-    }
-]
+  {
+    class: {
+      root: "bg-red-500",
+    },
+    conditions: {
+      isDisabled: false,
+      size: "sm",
+    },
+  },
+];
 ```
 
 ### Now
 
-
 ```ts
 compoundVariants: [
-    {
-      "classes": {
-        "root": "bg-red-500",
-      },
-      "conditions": {
-        "isDisabled": false,
-        "size": "sm",
-      }
-    }
-]
+  {
+    classes: {
+      root: "bg-red-500",
+    },
+    conditions: {
+      isDisabled: false,
+      size: "sm",
+    },
+  },
+];
 ```
 
 ## generateSafelist
@@ -166,5 +167,4 @@ export default {
   },
   safelist: generateSafeList([labelVariants, buttonVariants], screens),
 };
-
 ```

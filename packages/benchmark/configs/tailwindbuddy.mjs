@@ -11,19 +11,19 @@ export const options = {
   variants: {
     size: {
       xs: {
-        root: "h-6 w-6"
+        root: "h-6 w-6",
       },
       sm: {
-        root: "h-8 w-8"
+        root: "h-8 w-8",
       },
       md: {
-        root: "h-10 w-10"
+        root: "h-10 w-10",
       },
       lg: {
-        root: "h-12 w-12"
+        root: "h-12 w-12",
       },
       xl: {
-        root: "h-14 w-14"
+        root: "h-14 w-14",
       },
     },
   },
@@ -36,14 +36,14 @@ export const options = {
         size: "xs",
       },
       classes: {
-        root: "ring-1"
+        root: "ring-1",
       },
     },
     {
       conditions: {
         size: "md",
       },
-      classes: "ring-2"
+      classes: "ring-2",
     },
   ],
 };

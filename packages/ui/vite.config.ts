@@ -1,13 +1,13 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import dts from "vite-plugin-dts";
-import path from "path";
+import { fileURLToPath } from "node:url";
 
 export default defineConfig({
-  plugins: [react(), dts({ rollupTypes: true })],
+  plugins: [react(), dts({ bundleTypes: true })],
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "./src"),
+      "@": fileURLToPath(new URL("./src", import.meta.url)),
     },
   },
   build: {
@@ -18,16 +18,14 @@ export default defineConfig({
       // the proper extensions will be added
       fileName: "uikit",
     },
-    rollupOptions: {
-      external: ["react", "react-dom", "fs", "path"],
+    rolldownOptions: {
+      external: ["react", "react-dom"],
       output: {
         globals: {
           react: "React",
           "react-dom": "ReactDOM",
-          path: "path",
-          fs: "fs",
         },
       },
     },
-  }
+  },
 });

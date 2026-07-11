@@ -5,7 +5,8 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "test": "vitest"
+    "benchmark": "node benchmark.mjs",
+    "test": "vitest run"
   },
   "keywords": [],
   "author": "",
@@ -14,8 +15,8 @@
     "@busbud/tailwind-buddy": "workspace:*",
     "benchmark": "^2.1.4",
     "class-variance-authority": "^0.7.0",
-    "tailwind-merge": "^2.3.0",
-    "tailwind-variants": "^0.2.1",
-    "vitest": "^1.6.0"
+    "tailwind-merge": "^3.6.0",
+    "tailwind-variants": "^3.2.2",
+    "vitest": "^4.1.10"
   }
 }

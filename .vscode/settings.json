@@ -10,7 +10,5 @@
     ".*Styles.",
     ".*Classes."
   ],
-  "tailwindCSS.experimental.classRegex": [
-    "@tw\\s\\*\/\\s+[\"'`]([^\"'`]*)"
-  ]
+  "tailwindCSS.experimental.classRegex": ["@tw\\s\\*\/\\s+[\"'`]([^\"'`]*)"]
 }

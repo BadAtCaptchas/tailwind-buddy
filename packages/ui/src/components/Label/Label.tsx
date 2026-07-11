@@ -11,7 +11,9 @@ export const Label: React.FC<LabelProps> = ({
   disabled,
   ...restProps
 }) => {
-  const { slots: { root } } = labelVariants;
+  const {
+    slots: { root },
+  } = labelVariants;
 
   return (
     <Component

@@ -5,19 +5,13 @@ editLink: true
 
 # Local Development
 
-1. Install pnpm: `npm i -g pnpm`
-2. In the root folder:
-   - `nvm use`
-   - `pnpm install`
-3. In the `core` folder:
-   - `pnpm build -w`
-   - For unit tests: `pnpm test:unit`
+1. Run `nvm use` to select the repository's Node LTS version.
+2. Install the pinned pnpm version with Corepack if it is not already present.
+3. Run `pnpm install --frozen-lockfile` in the repository root.
+4. Run `pnpm verify` for the same build, test, type, lint, formatting,
+   documentation, and package checks used by CI.
 
 For a "real world example":
 
-1. In the `ui` folder:
-   - `pnpm install`
-   - `pnpm build -w`
-2. In the `sandbox` folder:
-   - `pnpm install`
-   - `pnpm dev`
+1. Run `pnpm --filter ui-kit build`.
+2. Run `pnpm --filter sandbox dev`.

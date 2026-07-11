@@ -1,5 +1,5 @@
-import { tv } from "tailwind-variants"
-import { twMergeConfig } from "./twMerge.config.mjs"
+import { tv } from "tailwind-variants";
+import { twMergeConfig } from "./twMerge.config.mjs";
 
 const noSlots = {
   base: "relative flex shrink-0 overflow-hidden rounded-full",
@@ -25,16 +25,16 @@ const noSlots = {
       class: "ring-2",
     },
   ],
-}
+};
 
 export const noSlotsAndCompoundNoTwMergeNoResponsive = {
-    avatar: tv(noSlots, {
-        twMerge: false,
-    }),
+  avatar: tv(noSlots, {
+    twMerge: false,
+  }),
 };
 
 export const noSlotsCompound = {
   avatar: tv(noSlots, {
-    twMergeConfig
+    twMergeConfig,
   }),
 };

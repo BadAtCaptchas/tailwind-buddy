@@ -20,7 +20,8 @@ export type ResponsiveVariants<V> = (keyof V)[];
  */
 export type Variants<S extends Slots> = {
   [variant: string]: {
-    [kind: string]: string | string[] | { [key in keyof S]?: string | string[] };
+    [kind: string]:
+      string | string[] | { [key in keyof S]?: string | string[] };
   };
 };
 
@@ -40,9 +41,7 @@ export type DefaultVariants<V extends Variants<S>, S extends Slots> = {
  * The class payload a single variant key (or compound variant) may carry.
  */
 export type VariantValue<S extends Slots> =
-  | string
-  | string[]
-  | { [key in keyof S]?: string | string[] };
+  string | string[] | { [key in keyof S]?: string | string[] };
 
 /**
  * A compound variant. Both `class` (v2 spelling) and `classes` (v3 spelling)
@@ -55,7 +54,7 @@ export type VariantValue<S extends Slots> =
  */
 export type CompoundVariant<V extends Variants<S>, S extends Slots> = {
   conditions: {
-    [K in keyof V]?: (keyof V[K]) | (keyof V[K])[] | boolean;
+    [K in keyof V]?: keyof V[K] | (keyof V[K])[] | boolean;
   } & { [K in string]?: string | string[] | boolean };
 } & (
   | { class: VariantValue<S>; classes?: undefined }

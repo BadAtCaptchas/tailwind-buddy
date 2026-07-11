@@ -2,7 +2,9 @@ import { describe, expect, test } from "vitest";
 import { labelVariants } from "../setup/specific";
 
 describe("test simple config", () => {
-  const { slots: { root } } = labelVariants;
+  const {
+    slots: { root },
+  } = labelVariants;
 
   describe("specific tests", () => {
     test("simple conditions", () => {

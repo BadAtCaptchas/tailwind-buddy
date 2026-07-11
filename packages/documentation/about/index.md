@@ -23,6 +23,6 @@ Tailwind Buddy addresses common challenges in managing Tailwind classes for comp
 - React Native + Nativewind friendly. It integrates really well with this stack.
 - Ability to use slots for component composition
 - Compound variants that work responsively, overriding classes based on variant values and other props
-- High-performance variant utility. 5 times faster than tailwind variants and almost 2 times faster than CVA
+- A benchmark suite with output-equivalent cases and environment/version reporting
 
 This library is inspired by [CVA](https://cva.style/docs) and [tailwind-variants](https://github.com/nextui-org/tailwind-variants), offering our unique approach to solving common Tailwind challenges.

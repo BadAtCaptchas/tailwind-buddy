@@ -3,21 +3,21 @@ import { compose, VariantProps } from "@busbud/tailwind-buddy";
 import { ReactNode } from "react";
 
 interface LabelBaseProps {
-    as?: React.ElementType;
-    disabled?: boolean;
-    className?: string,
-    children?: ReactNode
+  as?: React.ElementType;
+  disabled?: boolean;
+  className?: string;
+  children?: ReactNode;
 }
-  
+
 type ComposeType = {
-    "slots": ["root"],
-    variants: {
-        fontWeight: ["xxl"],
-        size: ["small", "large"],
-    },
-    props: LabelBaseProps,
-    screens: typeof screens
-}
+  slots: ["root"];
+  variants: {
+    fontWeight: ["xxl"];
+    size: ["small", "large"];
+  };
+  props: LabelBaseProps;
+  screens: typeof screens;
+};
 
 export const labelVariants = compose<ComposeType>({
   slots: {
@@ -49,4 +49,8 @@ export const labelVariants = compose<ComposeType>({
   responsiveVariants: ["fontWeight"],
 });
 
-export type LabelProps = VariantProps<ComposeType["variants"], ComposeType["screens"]> & ComposeType["props"];
+export type LabelProps = VariantProps<
+  ComposeType["variants"],
+  ComposeType["screens"]
+> &
+  ComposeType["props"];

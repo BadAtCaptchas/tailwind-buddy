@@ -10,49 +10,52 @@ Compound variants help you avoid deeply nested if-else statements in your codeba
 import { compose, VariantProps } from "@busbud/tailwind-buddy";
 
 type ComposeType = {
-  "slots": ["root", "label"],
+  slots: ["root", "label"];
   variants: {
-    variant: ["red", "blue"]
-  },
-  props: { 
-    isDisabled: boolean,
-  },
-  screens: []
-}
+    variant: ["red", "blue"];
+  };
+  props: {
+    isDisabled: boolean;
+  };
+  screens: [];
+};
 
 export const simpleVariants = compose<ComposeType>({
-    slots: {
-        "root": /** @tw */ "p-4",
-        "label": "text-red-500"
+  slots: {
+    root: /** @tw */ "p-4",
+    label: "text-red-500",
+  },
+  variants: {
+    variant: {
+      red: {
+        root: "bg-red-500",
+        label: "text-white",
+      },
+      blue: "bg-blue-500",
     },
-    variants: {
-        variant: {
-            "red": {
-                root: "bg-red-500",
-                label: "text-white"
-            },
-            "blue": "bg-blue-500"
-        }
-    },
-    defaultVariants: {
-        variant: "red"
-    },
-    compoundVariants: [  // [!code focus]
-      {  // [!code focus]
-        conditions: {  // [!code focus]
-          isDisabled: true,  // [!code focus]
-          // this can be also just one string value  // [!code focus]
-          variant: ["blue", "red"]  // [!code focus] 
-        },  // [!code focus]
-        // you can as for variants pass an Object of slots value as { root: "bg-purple"}  // [!code focus]
-        classes: "bg-purple-500"  // [!code focus]
-      }  // [!code focus]
-    ]  // [!code focus]
-})
+  },
+  defaultVariants: {
+    variant: "red",
+  },
+  compoundVariants: [
+    // [!code focus]
+    {
+      // [!code focus]
+      conditions: {
+        // [!code focus]
+        isDisabled: true, // [!code focus]
+        // this can be also just one string value  // [!code focus]
+        variant: ["blue", "red"], // [!code focus]
+      }, // [!code focus]
+      // you can as for variants pass an Object of slots value as { root: "bg-purple"}  // [!code focus]
+      classes: "bg-purple-500", // [!code focus]
+    }, // [!code focus]
+  ], // [!code focus]
+});
 
 // export type so we can use it in the component after
-export type SimpleProps = VariantProps<ComposeType["variants"]> & ComposeType["props"];
-
+export type SimpleProps = VariantProps<ComposeType["variants"]> &
+  ComposeType["props"];
 ```
 
 ```ts [Simple.tsx] .{7-8}

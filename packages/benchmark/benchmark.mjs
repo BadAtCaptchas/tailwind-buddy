@@ -1,4 +1,44 @@
 import Benchmark from "benchmark";
+import { readFileSync } from "node:fs";
+import { createRequire } from "node:module";
+import { dirname, join, parse } from "node:path";
+
+const require = createRequire(import.meta.url);
+
+const packageVersion = (name) => {
+  let directory = dirname(require.resolve(name));
+  const root = parse(directory).root;
+
+  while (directory !== root) {
+    const packagePath = join(directory, "package.json");
+    try {
+      const packageJson = JSON.parse(readFileSync(packagePath, "utf8"));
+      if (packageJson.name === name) return packageJson.version;
+    } catch {
+      // Keep walking toward the package root.
+    }
+    directory = dirname(directory);
+  }
+
+  return "unknown";
+};
+
+console.log(
+  JSON.stringify(
+    {
+      node: process.version,
+      platform: `${process.platform}-${process.arch}`,
+      packages: {
+        "@busbud/tailwind-buddy": packageVersion("@busbud/tailwind-buddy"),
+        "class-variance-authority": packageVersion("class-variance-authority"),
+        "tailwind-merge": packageVersion("tailwind-merge"),
+        "tailwind-variants": packageVersion("tailwind-variants"),
+      },
+    },
+    null,
+    2
+  )
+);
 
 const suite = new Benchmark.Suite();
 
@@ -40,11 +80,14 @@ suite
     );
   })
   // v2 setupCompose path: tailwind-merge injected internally (no external wrap)
-  .add("TAILWINDBUDDY v2 setupCompose - twMerge injected - compound yes", function () {
-    v2SetupComposeWithMerge.avatar.root({
-      size: "md",
-    });
-  })
+  .add(
+    "TAILWINDBUDDY v2 setupCompose - twMerge injected - compound yes",
+    function () {
+      v2SetupComposeWithMerge.avatar.root({
+        size: "md",
+      });
+    }
+  )
 
   .on("cycle", function (event) {
     console.log(String(event.target));

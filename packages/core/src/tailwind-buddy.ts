@@ -100,7 +100,7 @@ const normalizeCompoundVariants = <ClassValue, Conditions>(
 const createSlotsCore = <
   SlotNames extends string,
   PropsType extends Record<string, unknown>,
-  Config extends ComposeConfigRuntime
+  Config extends ComposeConfigRuntime,
 >(
   config: Config,
   mergeClasses: (input: string) => string
@@ -183,7 +183,8 @@ const createSlotsCore = <
                   ...flattenedCompoundVariants.map(({ conditions }) =>
                     Object.entries(conditions).every(
                       ([key, conditionValue]) => {
-                        const value = cleanedProps[key] ?? defaultVariants?.[key];
+                        const value =
+                          cleanedProps[key] ?? defaultVariants?.[key];
                         return Array.isArray(conditionValue)
                           ? conditionValue.includes(value)
                           : conditionValue === value;
@@ -228,7 +229,9 @@ const createSlotsCore = <
             if (!variantMap) continue;
 
             if (isRecord(value)) {
-              for (const [breakpoint, breakpointValue] of Object.entries(value)) {
+              for (const [breakpoint, breakpointValue] of Object.entries(
+                value
+              )) {
                 const variantKey = toVariantKey(breakpointValue);
                 if (variantKey === undefined) continue;
                 const variantClasses = variantMap.get(variantKey)?.get(slotKey);
@@ -341,22 +344,22 @@ const createSlotsCore = <
  * the original v3 behaviour. No `any` and no consumer changes.
  */
 interface Alias {
-  slots: string[];
+  slots: readonly string[];
   variants: Record<string, readonly string[]>;
   props: unknown;
-  screens: string[];
+  screens: readonly string[];
 }
 
 type ComposeClassValue<Def extends Alias> =
-  | { [K in Def["slots"][number]]?: string }
-  | string;
+  { [K in Def["slots"][number]]?: string } | string;
 
 /** Compound variant accepted by `compose` — `class` and `classes` both work. */
 type ComposeCompoundVariant<Def extends Alias> = {
   conditions: (
     | Def["props"]
     | {
-        [K in keyof Def["variants"]]?: Def["variants"][K][number] | Def["variants"][K][number][];
+        [K in keyof Def["variants"]]?:
+          Def["variants"][K][number] | Def["variants"][K][number][];
       }
   ) &
     Record<string, unknown>;
@@ -370,12 +373,15 @@ type ComposeOptions<Def extends Alias> = {
   slots: { [K in Def["slots"][number]]: string };
   variants?: {
     [K in keyof Def["variants"]]: {
-      [key in Def["variants"][K][number]]: { [S in Def["slots"][number]]?: string } | string;
+      [key in Def["variants"][K][number]]:
+        { [S in Def["slots"][number]]?: string } | string;
     };
   };
   compoundVariants?: ComposeCompoundVariant<Def>[];
-  defaultVariants: { [K in keyof Def["variants"]]?: Def["variants"][K][number] };
-  responsiveVariants?: (keyof Def["variants"])[];
+  defaultVariants: {
+    [K in keyof Def["variants"]]?: Def["variants"][K][number];
+  };
+  responsiveVariants?: readonly (keyof Def["variants"])[];
 };
 
 /**
@@ -419,7 +425,10 @@ type ComposeOptionsNormalized<Def extends Alias> = Omit<
 };
 
 export type ComposeResult<Def extends Alias> = {
-  slots: Record<Def["slots"][number], (props?: ComposeSlotProps<Def>) => string>;
+  slots: Record<
+    Def["slots"][number],
+    (props?: ComposeSlotProps<Def>) => string
+  >;
   options: ComposeOptions<Def>;
 };
 
@@ -450,7 +459,7 @@ type ComposeConfigInput<
   S extends Slots,
   V extends Variants<S>,
   R extends ResponsiveVariants<V>,
-  DV extends DefaultVariants<V, S>
+  DV extends DefaultVariants<V, S>,
 > = {
   slots: S;
   variants?: V;
@@ -472,7 +481,7 @@ type ComposeConfigNormalized<
   S extends Slots,
   V extends Variants<S>,
   R extends ResponsiveVariants<V>,
-  DV extends DefaultVariants<V, S>
+  DV extends DefaultVariants<V, S>,
 > = {
   slots: S;
   variants?: V;
@@ -486,7 +495,7 @@ type DefinitionResult<
   V extends Variants<S>,
   R extends ResponsiveVariants<V>,
   DV extends DefaultVariants<V, S>,
-  Sc extends string
+  Sc extends string,
 > = {
   slots: S;
   variants?: V;
@@ -509,7 +518,7 @@ export type ComposeResultV2<
   R extends ResponsiveVariants<V>,
   DV extends DefaultVariants<V, S>,
   Sc extends string,
-  Props
+  Props,
 > = {
   [Slot in keyof S & string]: (props?: MergedProps<Props, Sc, V, R>) => string;
 } & {
@@ -535,7 +544,7 @@ export const setupCompose = <Sc extends string>(
     S extends Slots,
     V extends Variants<S> = EmptyVariants,
     DV extends DefaultVariants<V, S> = DefaultVariants<V, S>,
-    R extends ResponsiveVariants<V> = ResponsiveVariants<V>
+    R extends ResponsiveVariants<V> = ResponsiveVariants<V>,
   >(
     config: ComposeConfigInput<S, V, R, DV>
   ) => {

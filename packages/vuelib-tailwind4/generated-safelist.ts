@@ -1,5 +1,5 @@
 // Auto-generated file - DO NOT EDIT
-// Generated on: 2025-02-27T07:17:30.584Z
+// Run `pnpm safelist-generation` to refresh this deterministic output.
 
 export default [
   "sm:w-[100px]",

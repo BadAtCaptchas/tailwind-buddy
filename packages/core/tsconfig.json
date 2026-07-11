@@ -5,7 +5,6 @@
     "module": "ESNext",
     "lib": ["ES2020"],
     "skipLibCheck": true,
-    "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
     },

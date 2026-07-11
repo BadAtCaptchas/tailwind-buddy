@@ -1,14 +1,14 @@
 import { compose } from "../../src/tailwind-buddy";
 
 export const buttonVariants = compose<{
-  slots: ["root", "label", "icon"],
+  slots: ["root", "label", "icon"];
   variants: {
-    appearance: ["default", "primary", "destructive"],
-    size: ["xs", "sm", "md"],
-    variant: ["contained", "text"]
-  },
-  props: {},
-  screens: []
+    appearance: ["default", "primary", "destructive"];
+    size: ["xs", "sm", "md"];
+    variant: ["contained", "text"];
+  };
+  props: {};
+  screens: [];
 }>({
   slots: {
     root: "bg-red-100",
@@ -18,14 +18,14 @@ export const buttonVariants = compose<{
   variants: {
     appearance: {
       default: {
-        root: "bg-purple-100"
+        root: "bg-purple-100",
       },
       primary: {
         root: "bg-purple-300",
-        icon: "bg-purple-300"
+        icon: "bg-purple-300",
       },
       destructive: {
-        root: "bg-purple-500"
+        root: "bg-purple-500",
       },
     },
     size: {

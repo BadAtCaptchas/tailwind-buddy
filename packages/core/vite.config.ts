@@ -1,12 +1,12 @@
 import { defineConfig } from "vite";
 import dts from "vite-plugin-dts";
-import path from "path";
+import { fileURLToPath } from "node:url";
 
 export default defineConfig({
-  plugins: [dts({ "rollupTypes": true})],
+  plugins: [dts({ bundleTypes: true })],
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "./src"),
+      "@": fileURLToPath(new URL("./src", import.meta.url)),
     },
   },
   build: {
@@ -17,14 +17,5 @@ export default defineConfig({
       // the proper extensions will be added
       fileName: "tailwindbuddy",
     },
-    rollupOptions: {
-      external: ["fs", "path"],
-      output: {
-        globals: {
-          path: "path",
-          fs: "fs"
-        },
-      },
-    },
-  }
+  },
 });

@@ -8,7 +8,7 @@ describe("Label", () => {
     const markup = renderToStaticMarkup(
       <Label as="button" disabled>
         Label
-      </Label>,
+      </Label>
     );
 
     expect(markup).toContain("disabled");

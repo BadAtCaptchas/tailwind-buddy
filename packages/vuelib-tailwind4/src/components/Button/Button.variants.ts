@@ -4,17 +4,17 @@ export type Screens = "sm" | "md";
 export const screens: Screens[] = ["sm", "md"];
 
 type ComposeType = {
-  "slots": ["root", "label", "icon"],
+  slots: ["root", "label", "icon"];
   variants: {
-    appearance: ["primary"],
-    size: ["xs", "lg"],
-    variant: ["contained"],
-  },
+    appearance: ["primary"];
+    size: ["xs", "lg"];
+    variant: ["contained"];
+  };
   props: {
-    isDisabled?: boolean
-  },
-  screens: typeof screens
-}
+    isDisabled?: boolean;
+  };
+  screens: typeof screens;
+};
 
 export const buttonVariants = compose<ComposeType>({
   slots: {
@@ -23,34 +23,38 @@ export const buttonVariants = compose<ComposeType>({
     icon: "bg-red-500",
   },
   variants: {
-    "appearance" : {
-      "primary": "bg-red-500"
+    appearance: {
+      primary: "bg-red-500",
     },
-    "size": {
-      "xs": "w-[100px]",
-      "lg": "w-[400px]",
+    size: {
+      xs: "w-[100px]",
+      lg: "w-[400px]",
     },
-    "variant": {
-      "contained": "h-[100px]"
-    }
+    variant: {
+      contained: "h-[100px]",
+    },
   },
   compoundVariants: [
     {
-      "classes": {
-        "root": "bg-red-500",
+      classes: {
+        root: "bg-red-500",
       },
-      "conditions": {
-        "isDisabled": false,
-        "size": "xs",
-      }
-    }
+      conditions: {
+        isDisabled: false,
+        size: "xs",
+      },
+    },
   ],
   defaultVariants: {
-    "appearance": "primary",
-    "size": "xs",
-    "variant": "contained"
+    appearance: "primary",
+    size: "xs",
+    variant: "contained",
   },
-  responsiveVariants: ["size"]
+  responsiveVariants: ["size"],
 });
 
-export type ButtonProps =  VariantProps<ComposeType["variants"], ComposeType["screens"]> & ComposeType["props"];
+export type ButtonProps = VariantProps<
+  ComposeType["variants"],
+  ComposeType["screens"]
+> &
+  ComposeType["props"];

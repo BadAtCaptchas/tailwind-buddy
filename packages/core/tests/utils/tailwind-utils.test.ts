@@ -3,6 +3,25 @@ import { generateSafeList } from "../../src/utils/tailwind-utils";
 import { simpleResponsiveComponent } from "../setup/simple-responsive";
 import { simpleCompoundComponent } from "../setup/simple-compound";
 describe("safelist", () => {
+  test("uses Tailwind's default 2xl breakpoint without the non-standard xxl alias", () => {
+    const generated = generateSafeList([simpleResponsiveComponent]);
+
+    expect(generated.some((className) => className.startsWith("2xl:"))).toBe(
+      true
+    );
+    expect(generated.some((className) => className.startsWith("xxl:"))).toBe(
+      false
+    );
+  });
+
+  test("does not mutate composed component options", () => {
+    const before = JSON.stringify(simpleCompoundComponent.options);
+
+    generateSafeList([simpleCompoundComponent], ["sm", "md"] as const);
+
+    expect(JSON.stringify(simpleCompoundComponent.options)).toBe(before);
+  });
+
   test("without compounds", () => {
     const str = [
       "sm:text-xl",
@@ -17,7 +36,10 @@ describe("safelist", () => {
       "md:bg-orange-500",
     ];
 
-    const generate_str = generateSafeList([simpleResponsiveComponent], ["sm", "md"]);
+    const generate_str = generateSafeList(
+      [simpleResponsiveComponent],
+      ["sm", "md"]
+    );
     expect(generate_str).toStrictEqual(str);
   });
 
@@ -30,7 +52,10 @@ describe("safelist", () => {
       "sm:text-purple-200",
       "md:text-purple-200",
     ];
-    const generate_str = generateSafeList([simpleCompoundComponent], ["sm", "md"]);
+    const generate_str = generateSafeList(
+      [simpleCompoundComponent],
+      ["sm", "md"]
+    );
     expect(generate_str).toStrictEqual(str);
   });
 });

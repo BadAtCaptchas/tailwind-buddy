@@ -8,7 +8,9 @@ import { tailwindV4Component } from "../setup/tailwind-v4";
  * under both v3 and v4. They are the guardrail for the `^3 || ^4` peer bump.
  */
 describe("tailwind v4 compose output", () => {
-  const { slots: { root } } = tailwindV4Component;
+  const {
+    slots: { root },
+  } = tailwindV4Component;
 
   test("passes v4 utilities through byte-for-byte (no rewrite/validation)", () => {
     // ring-3, shadow-sm, rounded-sm, bg-(--brand), !font-bold, arbitrary prop
@@ -25,17 +27,13 @@ describe("tailwind v4 compose output", () => {
     // yielding `md:hover:...` (breakpoint-outermost). This is the form both
     // v3 and v4 expect; v4's left-to-right stacked-variant reading does not
     // change this emitted string.
-    expect(
-      root({ intent: { initial: "stateful", md: "stateful" } })
-    ).toBe(
+    expect(root({ intent: { initial: "stateful", md: "stateful" } })).toBe(
       "shadow-sm rounded-sm hover:bg-blue-500 focus:ring-3 md:hover:bg-blue-500 md:focus:ring-3 bg-(--brand) !font-bold [mask-type:luminance]"
     );
   });
 
   test("prepends breakpoint to v4 css-var / important / arbitrary-property classes", () => {
-    expect(
-      root({ tone: { initial: "brand", sm: "brand" } })
-    ).toBe(
+    expect(root({ tone: { initial: "brand", sm: "brand" } })).toBe(
       "shadow-sm rounded-sm hover:bg-blue-500 focus:ring-3 bg-(--brand) !font-bold [mask-type:luminance] sm:bg-(--brand) sm:!font-bold sm:[mask-type:luminance]"
     );
   });

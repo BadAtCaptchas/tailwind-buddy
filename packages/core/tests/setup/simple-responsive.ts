@@ -1,13 +1,13 @@
-import { compose } from "../../src/tailwind-buddy"
+import { compose } from "../../src/tailwind-buddy";
 
 export const simpleResponsiveComponent = compose<{
-    slots: ["root"],
-    variants: {
-        size: ["small", "large", "extralarge"],
-        color: ["primary", "secondary"]
-    },
-    props: {},
-    screens: ["sm", "md", "lg", "xl", "xxl"]
+  slots: ["root"];
+  variants: {
+    size: ["small", "large", "extralarge"];
+    color: ["primary", "secondary"];
+  };
+  props: {};
+  screens: ["sm", "md", "lg", "xl", "xxl"];
 }>({
   slots: {
     root: "text-red-100",

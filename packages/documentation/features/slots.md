@@ -10,24 +10,24 @@ Let's say we want a label where its design reacts based on parent configuration.
 import { compose, VariantProps } from "@busbud/tailwind-buddy";
 
 type ComposeType = {
-  "slots": ["root", "label"], // [!code focus]
-  variants: {},
-  props: {},
-  screens: []
-}
+  slots: ["root", "label"]; // [!code focus]
+  variants: {};
+  props: {};
+  screens: [];
+};
 
 export const simpleVariants = compose<ComposeType>({
-    slots: {
-        "root": /** @tw */ "p-4", // [!code focus]
-        "label": "text-red-500" // [!code focus]
-    },
-    variants: {},
-    defaultVariants: {}
-})
+  slots: {
+    root: /** @tw */ "p-4", // [!code focus]
+    label: "text-red-500", // [!code focus]
+  },
+  variants: {},
+  defaultVariants: {},
+});
 
 // export type so we can use it in the component after
-export type SimpleProps = VariantProps<ComposeType["variants"]> & ComposeType["props"];
-
+export type SimpleProps = VariantProps<ComposeType["variants"]> &
+  ComposeType["props"];
 ```
 
 ```ts [Simple.tsx] .{4,7}

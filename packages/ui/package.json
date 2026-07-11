@@ -13,7 +13,7 @@
   "scripts": {
     "build": "tsc && vite build",
     "build:withcss": "pnpm generate:safelist && tsc && vite build && pnpm generate:css",
-    "generate:safelist": "vite-node scripts/generate-safelist.ts",
+    "generate:safelist": "tsx scripts/generate-safelist.ts",
     "generate:css": "tailwindcss -i ./index.css -o ./dist/style.css",
     "test": "vitest run"
   },
@@ -28,23 +28,22 @@
   },
   "dependencies": {
     "clsx": "^2.1.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
     "tailwind-merge": "^3.6.0"
   },
   "devDependencies": {
+    "@microsoft/api-extractor": "^7.57.0",
     "@tailwindcss/cli": "^4.3.2",
-    "@types/react": "^18.3.2",
-    "@types/react-dom": "^18.3.0",
-    "@typescript-eslint/eslint-plugin": "^7.2.0",
-    "@typescript-eslint/parser": "^7.2.0",
-    "@vitejs/plugin-react": "^4.2.1",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.3",
     "@busbud/tailwind-buddy": "workspace:*",
     "tailwindcss": "^4.3.2",
-    "typescript": "^5.2.2",
-    "vite": "^5.2.0",
-    "vite-node": "^1.6.1",
-    "vite-plugin-dts": "^3.8.1",
-    "vitest": "^1.6.1"
+    "tsx": "^4.23.0",
+    "typescript": "^6.0.3",
+    "vite": "^8.1.4",
+    "vite-plugin-dts": "^5.0.3",
+    "vitest": "^4.1.10"
   }
 }

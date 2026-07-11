@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 import { type ButtonProps, buttonVariants } from "./Button.variants";
-import { twMerge } from "tailwind-merge"
+import { twMerge } from "tailwind-merge";
 
 const defaultVariants = buttonVariants.options.defaultVariants;
 
@@ -14,7 +14,9 @@ export const Button: React.FC<ButtonProps> = ({
   variant = defaultVariants.variant,
   ...restProps
 }) => {
-  const { slots: { root, icon, label } } = buttonVariants;
+  const {
+    slots: { root, icon, label },
+  } = buttonVariants;
 
   const iconContainer = (children: ReactNode) => (
     <span
@@ -29,19 +31,23 @@ export const Button: React.FC<ButtonProps> = ({
   );
 
   const iconStart = iconStartProp && iconContainer(iconStartProp);
+  const iconEnd = iconEndProp && iconContainer(iconEndProp);
 
   return (
     <button
-      className={twMerge(root({
-        appearance,
-        className,
-        size,
-        variant,
-      }))}
+      className={twMerge(
+        root({
+          appearance,
+          className,
+          size,
+          variant,
+        })
+      )}
       {...restProps}
     >
       {iconStart}
       <span className={label({ size })}>{children}</span>
+      {iconEnd}
     </button>
   );
 };

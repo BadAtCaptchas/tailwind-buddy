@@ -8,34 +8,34 @@ editLink: true
 import { compose, VariantProps } from "@busbud/tailwind-buddy";
 
 type ComposeType = {
-  "slots": ["root"],
+  slots: ["root"];
   variants: {
-    variant: ["red", "blue"]
-  },
+    variant: ["red", "blue"];
+  };
   props: {
-    isDisabled: boolean,
-  },
-  screens: []
-}
+    isDisabled: boolean;
+  };
+  screens: [];
+};
 
 export const simpleVariants = compose<ComposeType>({
-    slots: {
-        "root": /** @tw */ "p-4"
+  slots: {
+    root: /** @tw */ "p-4",
+  },
+  variants: {
+    variant: {
+      red: "bg-red-500",
+      blue: "bg-blue-500",
     },
-    variants: {
-        variant: {
-            "red": "bg-red-500",
-            "blue": "bg-blue-500"
-        }
-    },
-    defaultVariants: {
-        variant: "red"
-    }
-})
+  },
+  defaultVariants: {
+    variant: "red",
+  },
+});
 
 // export type so we can use it in the component after
-export type SimpleProps = VariantProps<ComposeType["variants"]> & ComposeType["props"];
-
+export type SimpleProps = VariantProps<ComposeType["variants"]> &
+  ComposeType["props"];
 ```
 
 ```ts [Simple.tsx]

@@ -11,12 +11,16 @@ This function takes a string of classes and returns a modified string. The main 
 
 As we just provide a string in a smart order, it is really easy for tailwind-merge to merge the classes
 
-```ts 
+```ts
 import { twMerge } from "tailwind-merge";
 
-const { slots: { root } } = buttonVariants
+const {
+  slots: { root },
+} = buttonVariants;
 
-twMerge(root({
-    appearance: "primary"
-}))
+twMerge(
+  root({
+    appearance: "primary",
+  })
+);
 ```

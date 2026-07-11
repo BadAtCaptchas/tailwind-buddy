@@ -1,22 +1,18 @@
 # Benchmarks
 
-We compare our library against `cva` and `tailwind-variants`
+The benchmark compares equivalent Tailwind Buddy, CVA, and Tailwind Variants
+configurations. Output equivalence is tested before performance is measured.
 
-To run them:
+From the repository root:
 
-`pnpm install`
+```bash
+pnpm install --frozen-lockfile
+pnpm tailwindbuddy:build
+pnpm --filter benchmark test
+pnpm --filter benchmark benchmark
+```
 
-inside core folder:
-`pnpm build`
-
-come back to benchmark folder and run
-`node benchmarks.mjs`
-
-## Test
-
-`pnpm test`
-To make sure we have the same outputs between libraries
-
-## Our current benchmarks (TCA was our library's name at the time)
-
-<img width="825" alt="Image" src="https://github.com/user-attachments/assets/f78bf646-363d-4876-8477-0cc638dfd217" />
+Each run prints the Node version, operating system and architecture, and the
+exact package versions before reporting operations per second. Treat results
+as machine- and version-specific; do not compare results captured with
+different environments.

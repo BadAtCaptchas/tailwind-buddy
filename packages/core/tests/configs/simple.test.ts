@@ -2,10 +2,11 @@ import { describe, expect, test } from "vitest";
 import { simpleComponent } from "../setup/simple-with-slots";
 
 describe("test simple config", () => {
-  const { slots: { root, label } } = simpleComponent;
+  const {
+    slots: { root, label },
+  } = simpleComponent;
 
   describe("defaults values", () => {
-
     test("root", () => {
       const root_full_str =
         /** @tw */ "text-red-100 text-red-200 bg-red-500 text-lg";
@@ -15,10 +16,12 @@ describe("test simple config", () => {
     test("root with undefined value but good props just remove them so default variant should be used", () => {
       const root_full_str =
         /** @tw */ "text-red-100 text-red-200 bg-red-500 text-lg";
-      expect(root({
-        color: undefined,
-        size: undefined,
-      })).toBe(root_full_str);
+      expect(
+        root({
+          color: undefined,
+          size: undefined,
+        })
+      ).toBe(root_full_str);
     });
 
     test("label", () => {
@@ -47,7 +50,6 @@ describe("test simple config", () => {
       const root_full_str =
         /** @tw */ "text-red-100 text-red-200 bg-red-500 text-lg";
 
-      // @ts-ignore
       expect(root({ expectedNotFound: "tertiary" })).toBe(root_full_str);
     });
   });

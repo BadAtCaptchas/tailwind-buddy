@@ -1,14 +1,14 @@
-import { compose } from "../../src/tailwind-buddy"
+import { compose } from "../../src/tailwind-buddy";
 
 export const simpleCompoundComponent = compose<{
-  slots: ["root", "children"],
+  slots: ["root", "children"];
   variants: {
-    color: ["primary", "secondary"]
-  },
+    color: ["primary", "secondary"];
+  };
   props: {
     disabled?: boolean;
-  },
-  screens: []
+  };
+  screens: [];
 }>({
   slots: {
     root: "text-red-100",
@@ -16,10 +16,10 @@ export const simpleCompoundComponent = compose<{
   },
   variants: {
     color: {
-      primary:  "text-red-200",
+      primary: "text-red-200",
       secondary: {
-        "children": "text-green-100",
-        "root": "text-green-100"
+        children: "text-green-100",
+        root: "text-green-100",
       },
     },
   },
@@ -38,7 +38,7 @@ export const simpleCompoundComponent = compose<{
     {
       conditions: {
         disabled: true,
-        color: ["primary", "secondary"]
+        color: ["primary", "secondary"],
       },
       classes: "text-purple-200",
     },

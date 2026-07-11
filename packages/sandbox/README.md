@@ -7,5 +7,5 @@
 ```
 pnpm install
 
-pnpm dev 
+pnpm dev
 ```

@@ -8,7 +8,6 @@ import { compose } from "../../src/tailwind-buddy";
  */
 export const falsyCompoundComponent = compose<{
   slots: ["root"];
-  // eslint-disable-next-line @typescript-eslint/no-empty-object-type
   variants: {};
   props: { disabled?: boolean };
   screens: [];

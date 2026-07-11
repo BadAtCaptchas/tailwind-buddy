@@ -7,14 +7,14 @@ export interface LabelProps {
 }
 
 export const labelVariants = compose<{
-    slots: ["root", "icon", "container"],
-    variants: {
-        backgroundColor: ["blue", "green"],
-        fontWeight: ["regular", "bold", "extraBold"],
-        size: ["xxl", "xl", "lg", "md", "sm", "xs", "xxs"]
-    },
-    props: {},
-    screens: []
+  slots: ["root", "icon", "container"];
+  variants: {
+    backgroundColor: ["blue", "green"];
+    fontWeight: ["regular", "bold", "extraBold"];
+    size: ["xxl", "xl", "lg", "md", "sm", "xs", "xxs"];
+  };
+  props: {};
+  screens: [];
 }>({
   slots: {
     root: "inline-flex",
@@ -85,6 +85,5 @@ export const labelVariants = compose<{
       classes: "opacity-200",
     },
   ],
-  responsiveVariants: ["fontWeight", "size", "backgroundColor"]
-})
-
+  responsiveVariants: ["fontWeight", "size", "backgroundColor"],
+});

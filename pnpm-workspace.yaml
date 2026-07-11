@@ -6,7 +6,7 @@ packages:
   - "packages/vuelib"
   - "packages/vuelib-tailwind4"
 allowBuilds:
-  '@parcel/watcher': false
+  "@parcel/watcher": false
   esbuild: true
   husky: true
 

@@ -7,18 +7,15 @@ editLink: true
 > [!NOTE]
 > This should not be used excessively. As you'll see, we use [safelist](https://v3.tailwindcss.com/docs/content-configuration#safelisting-classes), which forces Tailwind to recognize all possible CSS class combinations for variants and compoundVariants, ensuring they are included in the final build.
 
-
 Use case: We want to let the user define what size of the button they want based on the breakpoints.
 
 To use responsive variants we will set up things like this:
-
 
 ## Create `tailwind-buddy-interface.ts`
 
 ```ts [tailwind-buddy-interface.ts]
 export type Screens = "sm" | "md";
 export const screens: Screens[] = ["sm", "md"]; // or use Tailwind default screens
-
 ```
 
 ## In your `tailwind.config.ts` Make sure to update the config
@@ -33,9 +30,9 @@ import { generateSafeList } from "@busbud/tailwind-buddy";
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx,mdx}"],
   theme: {
-    screens,  // [!code focus]
+    screens, // [!code focus]
   },
-  safelist: generateSafeList([labelVariants, buttonVariants], screens),  // [!code focus]
+  safelist: generateSafeList([labelVariants, buttonVariants], screens), // [!code focus]
 };
 ```
 
@@ -43,47 +40,51 @@ export default {
 
 ```ts [Simple.variants.ts].{9,25,28}
 import { compose, VariantProps } from "@busbud/tailwind-buddy";
+import { screens } from "../tailwind-buddy-interface";
 
 type ComposeType = {
-  "slots": ["root"],
+  slots: ["root"];
   variants: {
-    size: ["small", "big"]
-  },
-  props: {},
-  screens: typeof screens // [!code focus]
-}
+    size: ["small", "big"];
+  };
+  props: {};
+  screens: typeof screens; // [!code focus]
+};
 
 export const simpleVariants = compose<ComposeType>({
-    slots: {
-        "root": /** @tw */ "p-4"
+  slots: {
+    root: /** @tw */ "p-4",
+  },
+  variants: {
+    size: {
+      small: "w-[400px] h-[200px]",
+      big: "w-[1000px] h-[600px]",
     },
-    variants: {
-        size: {
-            "small": "w-[400px] h-[200px]",
-            "big": "w-[1000px] h-[600px]",
-        }
-    },
-    defaultVariants: {
-        variant: "small"
-    },
-    responsiveVariants: ["size"]  // [!code focus]
-})
+  },
+  defaultVariants: {
+    size: "small",
+  },
+  responsiveVariants: ["size"], // [!code focus]
+});
 
-export type SimpleProps = VariantProps<ComposeType["variants"], ComposeType["screens"]>; // make sure to now pass the screens to the generic type // [!code focus]
-``` 
+export type SimpleProps = VariantProps<
+  ComposeType["variants"],
+  ComposeType["screens"]
+>; // make sure to now pass the screens to the generic type // [!code focus]
+```
 
 ## See usage
 
 ```tsx [Simple.tsx] .{12-16}
-
 <div>
   <SimpleComponent size="small" />
-  <SimpleComponent size={{
-    initial: "sm", // initial should always be defined in this case
-    lg: "big" // at the end will generate the string p-4 w-[400px] h-[200px] lg:w-[1000px] lg:h-[600px]
-  }} />
+  <SimpleComponent
+    size={{
+      initial: "small", // initial should always be defined in this case
+      md: "big", // generates p-4 w-[400px] h-[200px] md:w-[1000px] md:h-[600px]
+    }}
+  />
 </div>
-
 ```
 
 ## Specificity for TAILWIND 4
@@ -91,15 +92,17 @@ export type SimpleProps = VariantProps<ComposeType["variants"], ComposeType["scr
 We do have a project example using Tailwind v4. Tailwind 4 does not currently support the Tailwind 3 safelist. In that case we need to generate the file so that
 Tailwind will know which CSS classes are used.
 
-
 To achieve that you can use our technique:
+
 - Create `generate-safelist.ts`
+
 ```ts [generate-safelist.ts]
 import { generateSafeList } from "@busbud/tailwind-buddy";
-import { screens, buttonVariants } from "./src/components/Button/Button.variants.js";
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import { screens } from "./src/tailwind-buddy-interface.js";
+import { buttonVariants } from "./src/components/Button/Button.variants.js";
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -107,23 +110,24 @@ const __dirname = path.dirname(__filename);
 const safelist = generateSafeList([buttonVariants], screens);
 
 const fileContent = `// Auto-generated file - DO NOT EDIT
-// Generated on: ${new Date().toISOString()}
+// Run \`pnpm safelist-generation\` to refresh this deterministic output.
 
 export default ${JSON.stringify(safelist, null, 2)};
 `;
 
 fs.writeFileSync(
-  path.resolve(__dirname, 'generated-safelist.ts'),
+  path.resolve(__dirname, "generated-safelist.ts"),
   fileContent,
-  'utf-8'
+  "utf-8"
 );
 
-console.log('Safelist generated successfully!');
+console.log("Safelist generated successfully!");
 ```
+
 - Update your package.json
 
 ```json
-scripts: {
+"scripts": {
   "safelist-generation": "node --import=tsx ./safelist-generation.ts",
   "prebuild": "pnpm safelist-generation",
   // ...

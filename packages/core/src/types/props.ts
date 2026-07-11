@@ -19,7 +19,7 @@ export type MergedProps<
   Props,
   Sc extends string,
   V,
-  R extends ResponsiveVariants<V> = ResponsiveVariants<V>
+  R extends ResponsiveVariants<V> = ResponsiveVariants<V>,
 > = {
   className?: string;
   class?: string;

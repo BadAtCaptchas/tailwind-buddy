@@ -102,4 +102,5 @@ export const buttonVariants = compose({
   responsiveVariants: ["size"],
 })<ButtonBaseProps>();
 
-export type ButtonProps = VariantsProps<typeof buttonVariants> & ButtonBaseProps;
+export type ButtonProps = VariantsProps<typeof buttonVariants> &
+  ButtonBaseProps;

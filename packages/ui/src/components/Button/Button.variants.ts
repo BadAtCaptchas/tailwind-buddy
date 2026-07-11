@@ -2,21 +2,21 @@ import { compose, VariantProps } from "@busbud/tailwind-buddy";
 import { ReactNode } from "react";
 
 type ComposeType = {
-  "slots": ["root", "label", "icon"],
+  slots: ["root", "label", "icon"];
   variants: {
-    appearance: ["default", "primary", "destructive"],
-    size: ["xs", "sm", "md"],
-    variant: ["contained", "text"]
-  },
+    appearance: ["default", "primary", "destructive"];
+    size: ["xs", "sm", "md"];
+    variant: ["contained", "text"];
+  };
   props: {
-    isDisabled?: boolean,
-    children?: ReactNode,
-    className?: string,
-    iconEnd?: ReactNode,
-    iconStart?: ReactNode,
-  },
-  screens: []
-}
+    isDisabled?: boolean;
+    children?: ReactNode;
+    className?: string;
+    iconEnd?: ReactNode;
+    iconStart?: ReactNode;
+  };
+  screens: [];
+};
 
 export const buttonVariants = compose<ComposeType>({
   slots: {
@@ -25,39 +25,39 @@ export const buttonVariants = compose<ComposeType>({
     icon: "bg-red-500",
   },
   variants: {
-    "appearance": {
-      "destructive": "bg-red-500",
-      "default": "bg-black-500",
-      "primary": "bg-blue-500",
+    appearance: {
+      destructive: "bg-red-500",
+      default: "bg-black-500",
+      primary: "bg-blue-500",
     },
-    "size": {
-      "md": "",
-      "sm": "",
-      "xs": ""
+    size: {
+      md: "",
+      sm: "",
+      xs: "",
     },
     variant: {
-      "contained": "",
-      "text": ""
-    }
+      contained: "",
+      text: "",
+    },
   },
   compoundVariants: [
     {
-      "classes": {
-        "root": "bg-red-500",
+      classes: {
+        root: "bg-red-500",
       },
-      "conditions": {
-        "isDisabled": false,
-        "size": "sm",
-      }
-    }
+      conditions: {
+        isDisabled: false,
+        size: "sm",
+      },
+    },
   ],
   defaultVariants: {
-    "appearance": "default",
-    "size": "md",
-    "variant": "contained"
-  }
+    appearance: "default",
+    size: "md",
+    variant: "contained",
+  },
 });
 
 // Combine variants and props into a single type for components
-export type ButtonProps = VariantProps<ComposeType["variants"]> & ComposeType["props"];
-
+export type ButtonProps = VariantProps<ComposeType["variants"]> &
+  ComposeType["props"];

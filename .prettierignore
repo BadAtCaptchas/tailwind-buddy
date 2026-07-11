@@ -1,0 +1,10 @@
+CHANGELOG.md
+pnpm-lock.yaml
+**/dist/
+**/coverage/
+**/node_modules/
+**/.vitepress/cache/
+**/.vitepress/.temp/
+**/.vitepress/dist/
+packages/ui/src/generated/
+packages/vuelib-tailwind4/generated-safelist.ts

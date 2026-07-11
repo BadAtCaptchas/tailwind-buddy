@@ -7,25 +7,17 @@ function App() {
         size="large"
         disabled={true}
         fontWeight={{
-          "initial": "xxl",
-          "sm": "xxl"
+          initial: "xxl",
+          sm: "xxl",
         }}
         className="text-green-500"
       >
         Label
       </Label>
 
-      <Button
-        iconStart={<SearchIcon />}
-      >
-        Awesome button
-      </Button>
+      <Button iconStart={<SearchIcon />}>Awesome button</Button>
 
-      <Button
-        appearance="primary"
-      >
-        Primary button
-      </Button>
+      <Button appearance="primary">Primary button</Button>
 
       <Dumb />
     </div>

@@ -1,13 +1,13 @@
 import { compose } from "../../src/tailwind-buddy";
 
 export const simpleComponent = compose<{
-  slots: ["root", "label"],
+  slots: ["root", "label"];
   variants: {
-    color: ["primary", "secondary"],
-    size: ["small", "medium"],
-  },
-  props: {},
-  screens: []
+    color: ["primary", "secondary"];
+    size: ["small", "medium"];
+  };
+  props: {};
+  screens: [];
 }>({
   slots: {
     root: "text-red-100 text-red-200",
@@ -16,11 +16,11 @@ export const simpleComponent = compose<{
   variants: {
     color: {
       primary: {
-        "root": "bg-red-500",
-        "label": "bg-green-500",
+        root: "bg-red-500",
+        label: "bg-green-500",
       },
       secondary: {
-        "root": "bg-green-500"
+        root: "bg-green-500",
       },
     },
     size: {
@@ -29,7 +29,7 @@ export const simpleComponent = compose<{
         root: "text-lg",
       },
       medium: {
-        root: "text-md"
+        root: "text-md",
       },
     },
   },

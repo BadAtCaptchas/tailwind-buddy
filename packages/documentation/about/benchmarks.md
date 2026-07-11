@@ -5,7 +5,13 @@ editLink: true
 
 # Benchmarks
 
-You can check any time how we do benchmark inside `packages/benchmark`
+The reproducible benchmark lives in `packages/benchmark`. It validates that
+each library returns equivalent output, then prints the runtime environment and
+dependency versions before measuring performance. Results are specific to the
+machine and package versions used for that run.
 
-<img width="825" alt="Image" src="https://github.com/user-attachments/assets/f78bf646-363d-4876-8477-0cc638dfd217" />
-
+```bash
+pnpm tailwindbuddy:build
+pnpm --filter benchmark test
+pnpm --filter benchmark benchmark
+```
