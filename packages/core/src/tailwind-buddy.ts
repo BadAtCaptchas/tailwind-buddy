@@ -438,13 +438,12 @@ export const compose = <Def extends Alias>(
 type ComposeConfigInput<
   S extends Slots,
   V extends Variants<S>,
-  CV extends CompoundVariant<V, S>,
   R extends ResponsiveVariants<V>,
   DV extends DefaultVariants<V, S>
 > = {
   slots: S;
   variants?: V;
-  compoundVariants?: CV[];
+  compoundVariants?: CompoundVariant<V, S>[];
   responsiveVariants?: R;
   // Required so `.definition().defaultVariants.<key>` stays non-optional, matching v2.
   defaultVariants: DV;
@@ -524,11 +523,10 @@ export const setupCompose = <Sc extends string>(
   return <
     S extends Slots,
     V extends Variants<S> = EmptyVariants,
-    CV extends CompoundVariant<V, S> = CompoundVariant<V, S>,
     DV extends DefaultVariants<V, S> = DefaultVariants<V, S>,
     R extends ResponsiveVariants<V> = ResponsiveVariants<V>
   >(
-    config: ComposeConfigInput<S, V, CV, R, DV>
+    config: ComposeConfigInput<S, V, R, DV>
   ) => {
     const normalized = {
       ...config,
