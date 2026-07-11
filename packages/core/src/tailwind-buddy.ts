@@ -20,6 +20,15 @@ const uniquifyClasses = (classes: string[]): string =>
 const isRecord = (value: unknown): value is Record<string, unknown> =>
   typeof value === "object" && value !== null;
 
+/** Normalises runtime values to the string keys produced by Object.entries. */
+const toVariantKey = (value: unknown): string | undefined => {
+  if (typeof value === "string") return value;
+  if (typeof value === "boolean" || typeof value === "number") {
+    return String(value);
+  }
+  return undefined;
+};
+
 /**
  * Extracts the classes for a single slot from a variant/compound value, which
  * may be a string, an array of strings, or a per-slot map.
@@ -165,8 +174,10 @@ const createSlotsCore = <
                   slotKey,
                   ...sortedVariantKeys.map((key) => {
                     const value = cleanedProps[key] ?? defaultVariants?.[key];
-                    return flattenedVariants.get(key)?.has(value as string)
-                      ? value
+                    const variantKey = toVariantKey(value);
+                    return variantKey !== undefined &&
+                      flattenedVariants.get(key)?.has(variantKey)
+                      ? variantKey
                       : null;
                   }),
                   ...flattenedCompoundVariants.map(({ conditions }) =>
@@ -218,9 +229,9 @@ const createSlotsCore = <
 
             if (isRecord(value)) {
               for (const [breakpoint, breakpointValue] of Object.entries(value)) {
-                const variantClasses = variantMap
-                  .get(breakpointValue as string)
-                  ?.get(slotKey);
+                const variantKey = toVariantKey(breakpointValue);
+                if (variantKey === undefined) continue;
+                const variantClasses = variantMap.get(variantKey)?.get(slotKey);
                 if (!variantClasses) continue;
                 for (const cls of variantClasses) {
                   if (breakpoint === "initial") {
@@ -233,9 +244,9 @@ const createSlotsCore = <
                 }
               }
             } else {
-              const variantClasses = variantMap
-                .get(value as string)
-                ?.get(slotKey);
+              const variantKey = toVariantKey(value);
+              if (variantKey === undefined) continue;
+              const variantClasses = variantMap.get(variantKey)?.get(slotKey);
               if (!variantClasses) continue;
               for (const cls of variantClasses) {
                 classSet.add(cls);
