@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { execSync } from "child_process";
+import { execFileSync } from "child_process";
 import path from "path";
 import * as fs from "fs";
 
@@ -42,12 +42,25 @@ function extractLatestReleaseLog() {
 }
 
 function generateCommitLogSinceLastTag() {
-  const latestTag = execSync('git describe --tags --abbrev=0 HEAD^').toString().trim();
-  const newTag = execSync('git describe --tags --abbrev=0').toString().trim();
+  const latestTag = execFileSync("git", [
+    "describe",
+    "--tags",
+    "--abbrev=0",
+    "HEAD^",
+  ]).toString().trim();
+  const newTag = execFileSync("git", [
+    "describe",
+    "--tags",
+    "--abbrev=0",
+  ]).toString().trim();
 
   // Generate the changelog between these two tags
-  const commitLog = execSync(`git log ${latestTag}..${newTag} --pretty=format:"* %s (%h)"`).toString().trim();
-  
+  const commitLog = execFileSync("git", [
+    "log",
+    `${latestTag}..${newTag}`,
+    "--pretty=format:* %s (%h)",
+  ]).toString().trim();
+
   if (!commitLog) throw new Error(`No commits found between tags ${latestTag} and ${newTag}`);
 
   return commitLog;
